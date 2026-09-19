@@ -1,0 +1,54 @@
+======================================================================
+Metric: Gross Sales Volume
+Description: Calculates total units sold excluding returns
+======================================================================
+Gross Sales Volume = 
+CALCULATE(
+    SUM(sales[Units Sold]), 
+    sales[Transaction Type] = "Sale"
+)
+
+======================================================================
+Metric: Total Revenue
+Description: Calculates gross revenue directly from sales transactions
+======================================================================
+
+Total Revenue = SUM(sales[Revenue (INR)])
+
+======================================================================
+Metric: Returned Units
+Description: Calculates total returned units filtered by return transactions
+======================================================================
+Returned Units = 
+VAR _ReturnVolume = 
+    CALCULATE(
+        SUM(sales[Units Sold]),
+        sales[Transaction Type] = "Return"
+    )
+RETURN 
+    ABS(_ReturnVolume)
+======================================================================
+Metric: Net Sales Volume
+Description: Calculates net volume by subtracting returned units from gross volume
+======================================================================
+Net Sales Volume = [Gross Sales Volume] - [Returned Units]
+
+======================================================================
+Metric: Strict Revenue
+Description: Calculates total revenue ignoring local visual context but respecting page slicers
+======================================================================
+Strict Revenue = 
+CALCULATE(
+    [Total Revenue],
+    ALLSELECTED(sales)
+)
+
+======================================================================
+Metric: Strict Sales Volume
+Description: Calculates gross sales volume ignoring local visual context but respecting page slicers
+======================================================================
+Strict Sales Volume = 
+CALCULATE(
+    [Gross Sales Volume],
+    ALLSELECTED(sales)
+)

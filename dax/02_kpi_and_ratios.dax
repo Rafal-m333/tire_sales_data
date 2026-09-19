@@ -1,0 +1,23 @@
+======================================================================
+Metric: Percentage Share of sales
+Description: Calculates the proportion of sales volume relative to total selected volume (returns BLANK if no sales)
+======================================================================
+Percentage Share of sales = 
+DIVIDE(
+    [Gross Sales Volume],
+    [Strict Sales]
+)
+
+======================================================================
+Metric: Return Rate
+Description: Calculates the percentage of returned units relative to total gross sales volume
+======================================================================
+Return Rate = 
+VAR _ReturnRate = 
+    DIVIDE(
+        [Returned Units], 
+        [Gross Sales Volume]
+    )
+RETURN 
+    ABS(_ReturnRate)
+
